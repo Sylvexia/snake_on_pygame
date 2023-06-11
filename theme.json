@@ -15,5 +15,18 @@
             "dark_bg":"#000000",
             "normal_border": "#999999"
         }
+    },
+    "drop_down_menu":
+    {
+        "misc":
+        {
+            "expand_direction": "down"
+        },
+
+        "colours":
+        {
+            "normal_bg": "#25292e",
+            "hovered_bg": "#35393e"
+        }
     }
 }

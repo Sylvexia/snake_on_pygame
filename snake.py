@@ -125,9 +125,9 @@ class Food():
             (self.position[0]*grid_width, self.position[1]*grid_height), (grid_width, grid_height))
         pygame.draw.rect(surface, self.color, r)
         
-def game_over(screen):
+def game_over(screen, score):
     myfont = pygame.font.Font('Minecraft.ttf', 32)
-    text = myfont.render(f"Game Over!", 1, ColorSet.text)
+    text = myfont.render(f"Game Over! \nScore is: {score}", 1, ColorSet.text)
     text_rect = text.get_rect(center=(Playground.width/2, Playground.height/2))
     clock = pygame.time.Clock()
     screen.fill((0, 0, 0))
@@ -139,7 +139,21 @@ def game_over(screen):
         screen.blit(text, text_rect)
         pygame.display.flip()
         clock.tick(60)
-
+        
+def game_over_2p(screen, score1, score2):
+    myfont = pygame.font.Font('Minecraft.ttf', 32)
+    text = myfont.render(f"Game Over! \nRed snake score is: {score1}, \nBlue snake score is: {score2}", 1, ColorSet.text)
+    text_rect = text.get_rect(center=(Playground.width/2, Playground.height/2))
+    clock = pygame.time.Clock()
+    screen.fill((0, 0, 0))
+    while True:
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                return
+        screen.blit(text, text_rect)
+        pygame.display.flip()
+        clock.tick(60)
 
 def drawGrid(surface):
     col_size = Playground.col_size
@@ -181,7 +195,7 @@ def snake_game(screen):
         snake.update()
 
         if len(snake.positions) > 2 and snake.get_head_position() in snake.positions[1:]:
-            game_over(screen)
+            game_over(screen, snake.score)
             return
 
         if snake.get_head_position() == food.position:
@@ -245,11 +259,14 @@ def snake_game_2_player(screen):
             events, [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d])
         snake2.update()
 
-        if len(snake1.positions) > 2 and snake1.get_head_position() in snake1.positions[1:]:
-            snake1.reset()
-        if len(snake2.positions) > 2 and snake2.get_head_position() in snake2.positions[1:]:
-            snake2.reset()
-
+        if len(snake1.positions) > 2 and snake1.get_head_position() in snake1.positions[1:] or snake1.get_head_position() in snake2.positions:
+            game_over_2p(screen, snake1.score, snake2.score)
+            return
+        if len(snake2.positions) > 2 and snake2.get_head_position() in snake2.positions[1:] or snake2.get_head_position() in snake1.positions:
+            game_over_2p(screen, snake1.score, snake2.score)
+            return
+        
+        
         if snake1.get_head_position() == food.position:
             snake1.length += 1
             snake1.score += 1
@@ -290,8 +307,5 @@ def snake_game_2_player(screen):
 
 if __name__ == "__main__":
     pygame.init()
-    # snake_game_2_player(pygame.display.set_mode(
-    #     (Playground.width, Playground.height), pygame.RESIZABLE))
-    game_over(pygame.display.set_mode(
+    snake_game_2_player(pygame.display.set_mode(
         (Playground.width, Playground.height), pygame.RESIZABLE))
-

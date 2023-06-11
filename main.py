@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui
-from snake import snake_game
+from snake import snake_game, snake_game_2_player
 from option import option_gui
 
 pygame.init()
@@ -59,6 +59,8 @@ button_quit = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 350),
                                            )
 
 is_running = True
+game_mode = "single player"
+
 while is_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -68,9 +70,13 @@ while is_running:
 
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == button_new_game:
-                snake_game(screen)
+                if game_mode == "single player":
+                    snake_game(screen)
+                elif game_mode == "multiplayer":
+                    snake_game_2_player(screen)
+                    
             elif event.ui_element == button_options:
-                option_gui(screen)
+                game_mode=option_gui(screen)
             elif event.ui_element == button_quit:
                 is_running = False
 

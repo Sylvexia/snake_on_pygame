@@ -20,7 +20,14 @@ def option_gui(screen):
                                                     text="Return",
                                                     manager=gui_manager)
     
+    drop_down = pygame_gui.elements.UIDropDownMenu(relative_rect=pygame.Rect((250, 300), (300, 30)),
+                                                    options_list=["single player", "multiplayer"],
+                                                    starting_option="single player",
+                                                    manager=gui_manager)
+    
     is_running = True
+    
+    options = "single player"
 
     while is_running:
         for event in pygame.event.get():
@@ -34,9 +41,13 @@ def option_gui(screen):
                     volume = event.value
                     pygame.mixer.music.set_volume(volume)
                     
+            elif event.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
+                if event.ui_element == drop_down:
+                    options = event.text
+                    
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == return_button:
-                    return
+                    return options
 
         gui_manager.update(pygame.time.Clock().tick(60) / 1000.0)
 

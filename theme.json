@@ -1,0 +1,19 @@
+{
+    "label":
+    {
+        "font":
+        {
+            "name": "Minecraft",
+            "regular_path": "Minecraft.ttf", 
+            "size": "64"
+        }
+    },
+    "panel":
+    {
+        "colours":
+        {
+            "dark_bg":"#000000",
+            "normal_border": "#999999"
+        }
+    }
+}

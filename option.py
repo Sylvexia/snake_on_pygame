@@ -33,8 +33,9 @@ def option_gui(screen):
                 if event.ui_element == volume_slider:
                     volume = event.value
                     pygame.mixer.music.set_volume(volume)
-                elif event.ui_element == return_button:
-                    print("invoked")
+                    
+            elif event.type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == return_button:
                     return
 
         gui_manager.update(pygame.time.Clock().tick(60) / 1000.0)

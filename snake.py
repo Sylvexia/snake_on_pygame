@@ -127,7 +127,7 @@ class Food():
         
 def game_over(screen, score):
     myfont = pygame.font.Font('Minecraft.ttf', 32)
-    text = myfont.render(f"Game Over! \nScore is: {score}", 1, ColorSet.text)
+    text = myfont.render(f"Score {score}", 1, ColorSet.text)
     text_rect = text.get_rect(center=(Playground.width/2, Playground.height/2))
     clock = pygame.time.Clock()
     screen.fill((0, 0, 0))
@@ -142,7 +142,7 @@ def game_over(screen, score):
         
 def game_over_2p(screen, score1, score2):
     myfont = pygame.font.Font('Minecraft.ttf', 32)
-    text = myfont.render(f"Game Over! \nRed snake score is: {score1}, \nBlue snake score is: {score2}", 1, ColorSet.text)
+    text = myfont.render(f"Red snake score {score1}, Blue snake score {score2}", 1, ColorSet.text)
     text_rect = text.get_rect(center=(Playground.width/2, Playground.height/2))
     clock = pygame.time.Clock()
     screen.fill((0, 0, 0))
